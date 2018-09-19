@@ -1,0 +1,1 @@
+{"pillar": [{"track": [{"tname": "Cyber Security", "courses": [{"cname": "Networks", "id": 1}, {"cname": "Security", "id": 2}], "id": 1}, {"tname": "Artificial Intelligence", "courses": [{"cname": "Machine Learning", "id": 1}, {"cname": "Artificial Intelligence", "id": 2}], "id": 2}], "name": "ISTD", "id": 1}, {"name": "ESD", "id": 2}]}
