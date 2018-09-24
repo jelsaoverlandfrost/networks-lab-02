@@ -1,5 +1,8 @@
 import requests
 
+# To test the server API, just run this client script when the server is on.
+# Done by Mao Liyan Frosty 1002190 & Yang Lei 1002361
+
 print "--- Get connection to the API ---"
 r = requests.get("http://localhost:5000/")
 print r.headers
@@ -7,6 +10,11 @@ print r.text
 
 print "--- Get information for all the pillars ---"
 r = requests.get("http://localhost:5000/pillar")
+print r.headers
+print r.text
+
+print "--- Get information for ISTD tracks, wrong authentication ---"
+r = requests.get("http://localhost:5000/pillar/ISTD", auth=('admin', 'passwording'))
 print r.headers
 print r.text
 
@@ -36,7 +44,7 @@ r = requests.post("http://localhost:5000/pillar", json={'name': 'EPD'}, auth=('u
 print r.headers
 print r.text
 
-print "Delete a pillar using the post method"
+print "Delete a pillar using the Delete method"
 r = requests.delete("http://localhost:5000/pillar/EPD")
 print r.headers
 print r.text

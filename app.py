@@ -2,6 +2,9 @@ from flask import Flask, jsonify, abort, request, Response
 from functools import wraps
 import json
 
+# This is the server API. Run this script before you run the client script.
+# Done by Mao Liyan Frosty 1002190 & Yang Lei 1002361
+
 app = Flask(__name__)
 
 json_file = open("pillar.json", 'r')
