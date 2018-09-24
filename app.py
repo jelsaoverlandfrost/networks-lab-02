@@ -18,7 +18,7 @@ def api_root():
     return 'Welcome to SUTD CourseList!'
 
 
-# Authentication
+# Authentication Checker
 def check_auth(username, password):
     """This function is called to check if a username /
     password combination is valid.
@@ -31,6 +31,7 @@ def check_auth(username, password):
         return False
 
 
+# Make the checking a wrapper, so it could be applied to functions easily
 def requires_auth(f):
     @wraps(f)
     def decorated(*args, **kwargs):
@@ -41,12 +42,13 @@ def requires_auth(f):
     return decorated
 
 
-# pillar
+# Show all pillar information
 @app.route('/pillar', methods=['GET'])
 def pillar():
     return jsonify({'name': pillar_json})
 
 
+# Show a specific pillar information
 @app.route('/pillar/<pillar_name>', methods=['GET'])
 @requires_auth
 def get_pillar(pillar_name):
@@ -59,9 +61,9 @@ def get_pillar(pillar_name):
     return jsonify({'pillar': pillar})
 
 
+# Get different mimetype of the pillar information
 @app.route('/pillar/<pillar_name>/info/<mime_type>', methods=['GET'])
 @requires_auth
-# get pillar information as json file or txt file
 def get_text_with_format(pillar_name, mime_type):
     pillar = []
     for pillars in pillar_json:
@@ -81,6 +83,7 @@ def get_text_with_format(pillar_name, mime_type):
                 abort(404)
 
 
+# Get track information
 @app.route('/pillar/<pillar_name>/<track_name>', methods=['GET'])
 def get_track(pillar_name, track_name):
     pillar = []
@@ -99,6 +102,7 @@ def get_track(pillar_name, track_name):
         return jsonify({'track': track})
 
 
+# Add a new pillar
 @app.route('/pillar', methods=['POST'])
 @requires_auth
 def create_pillar():
@@ -114,14 +118,15 @@ def create_pillar():
     return jsonify({'new_pillar': pillar}), 201
 
 
+# Sends 401 if fail to authenticate
 def authenticate():
-    """Sends a 401 response that enables basic auth"""
     return Response(
         'Could not verify your access level for that URL.\n'
         'You have to login with proper credentials', 401,
         {'WWW-Authenticate': 'Basic realm="Login Required"'})
 
 
+# Delete a pillar with authentication
 @app.route('/pillar/<pillar_name>', methods=['DELETE'])
 def delete_pillar(pillar_name):
     pillar = []
